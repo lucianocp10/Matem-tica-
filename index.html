@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualização Geométrica de Produtos Notáveis</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Produtos Notáveis</h1>
+
+        <div class="controls">
+            <div class="control-group">
+                <label for="product-type">Escolha o Produto Notável:</label>
+                <select id="product-type">
+                    <option value="sum-square">Quadrado da Soma: (a+b)²</option>
+                    <option value="diff-square">Quadrado da Diferença: (a-b)²</option>
+                    <option value="sum-diff-prod">Produto da Soma pela Diferença: (a+b)(a-b)</option>
+                </select>
+            </div>
+
+            <div class="control-group sliders">
+                <div class="slider-container">
+                    <label for="val-a">Valor de 'a': <span id="a-display">5</span></label>
+                    <input type="range" id="val-a" min="1" max="10" value="5" step="0.5">
+                </div>
+
+                <div class="slider-container">
+                    <label for="val-b">Valor de 'b': <span id="b-display">3</span></label>
+                    <input type="range" id="val-b" min="1" max="10" value="3" step="0.5">
+                </div>
+            </div>
+
+            <div class="formula-display" id="formula-display">
+                (a+b)² = a² + 2ab + b²
+            </div>
+        </div>
+
+        <div class="visualization-container" id="visualization">
+            <!-- As formas geométricas serão renderizadas aqui via JavaScript -->
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
