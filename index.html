@@ -3,45 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Visualização Geométrica de Produtos Notáveis</title>
+    <meta name="theme-color" content="#15204d">
+    <meta name="description" content="Explore os produtos notáveis com figuras geométricas coloridas, valores interativos e explicações passo a passo.">
+    <title>Produtos Notáveis · Matemática em cores</title>
     <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
 </head>
 <body>
-    <div class="container">
-        <h1>Produtos Notáveis</h1>
-
-        <div class="controls">
-            <div class="control-group">
-                <label for="product-type">Escolha o Produto Notável:</label>
-                <select id="product-type">
-                    <option value="sum-square">Quadrado da Soma: (a+b)²</option>
-                    <option value="diff-square">Quadrado da Diferença: (a-b)²</option>
-                    <option value="sum-diff-prod">Produto da Soma pela Diferença: (a+b)(a-b)</option>
-                </select>
+    <div class="app-shell">
+        <header class="hero">
+            <div class="hero-copy">
+                <p class="eyebrow"><span class="brand-mark" aria-hidden="true">▦</span> MATEMÁTICA EM CORES</p>
+                <h1>Produtos <span>notáveis.</span></h1>
+                <p class="hero-subtitle">Explore as áreas. Entenda as fórmulas.</p>
             </div>
-
-            <div class="control-group sliders">
-                <div class="slider-container">
-                    <label for="val-a">Valor de 'a': <span id="a-display">5</span></label>
-                    <input type="range" id="val-a" min="1" max="10" value="5" step="0.5">
-                </div>
-
-                <div class="slider-container">
-                    <label for="val-b">Valor de 'b': <span id="b-display">3</span></label>
-                    <input type="range" id="val-b" min="1" max="10" value="3" step="0.5">
-                </div>
+            <div class="hero-actions">
+                <span class="interactive-tag"><span aria-hidden="true"></span> Visualização interativa</span>
+                <button type="button" class="button button-light" id="fullscreen-button" hidden>Tela cheia <span aria-hidden="true">⛶</span></button>
             </div>
-
-            <div class="formula-display" id="formula-display">
-                (a+b)² = a² + 2ab + b²
+        </header>
+        <main>
+            <fieldset class="product-picker">
+                <legend>Qual identidade vamos explorar?</legend>
+                <label class="product-option">
+                    <input type="radio" name="product-type" value="sum-square" checked>
+                    <span class="product-card"><span class="card-number">01</span><span><strong>Quadrado da soma</strong><span class="card-formula">(a + b)²</span></span><span class="selection-mark" aria-hidden="true">✓</span></span>
+                </label>
+                <label class="product-option">
+                    <input type="radio" name="product-type" value="diff-square">
+                    <span class="product-card"><span class="card-number">02</span><span><strong>Quadrado da diferença</strong><span class="card-formula">(a − b)²</span></span><span class="selection-mark" aria-hidden="true">✓</span></span>
+                </label>
+                <label class="product-option">
+                    <input type="radio" name="product-type" value="sum-diff-prod">
+                    <span class="product-card"><span class="card-number">03</span><span><strong>Soma pela diferença</strong><span class="card-formula">(a + b)(a − b)</span></span><span class="selection-mark" aria-hidden="true">✓</span></span>
+                </label>
+            </fieldset>
+            <div class="workspace">
+                <aside class="control-panel panel" aria-labelledby="controls-title">
+                    <p class="section-label">EXPERIMENTE</p>
+                    <h2 id="controls-title">Mude os valores</h2>
+                    <p class="muted">Arraste e observe a figura se transformar.</p>
+                    <div class="slider-card slider-a">
+                        <div class="slider-heading"><label for="val-a">Medida <strong>a</strong></label><output id="a-display" for="val-a">5</output></div>
+                        <input type="range" id="val-a" min="1" max="10" value="5" step="0.5" aria-describedby="range-hint">
+                        <div class="range-bounds" aria-hidden="true"><span>1</span><span>10</span></div>
+                    </div>
+                    <div class="slider-card slider-b">
+                        <div class="slider-heading"><label for="val-b">Medida <strong>b</strong></label><output id="b-display" for="val-b">3</output></div>
+                        <input type="range" id="val-b" min="1" max="10" value="3" step="0.5" aria-describedby="range-hint">
+                        <div class="range-bounds" aria-hidden="true"><span>1</span><span>10</span></div>
+                    </div>
+                    <p id="range-hint" class="range-hint">Valores de 1 a 10, em passos de 0,5.</p>
+                    <button type="button" id="reset-button" class="button button-reset"><span aria-hidden="true">↺</span> Reiniciar exemplo</button>
+                    <div class="tip"><span aria-hidden="true">✦</span><p id="explore-tip">Por que aparecem dois retângulos de área a · b?</p></div>
+                </aside>
+                <section class="visual-panel panel" aria-labelledby="visual-title">
+                    <div class="panel-heading"><div><p class="section-label">VEJA A GEOMETRIA</p><h2 id="visual-title">Quadrado da soma</h2></div><span class="area-badge">ÁREAS</span></div>
+                    <div class="formula-display" id="formula-display" aria-live="polite" aria-atomic="true"></div>
+                    <p class="notice" id="geometry-notice" role="status" hidden></p>
+                    <div class="visualization-container" id="visualization"></div>
+                    <ul class="legend" id="legend" aria-label="Legenda das áreas"></ul>
+                </section>
             </div>
-        </div>
-
-        <div class="visualization-container" id="visualization">
-            <!-- As formas geométricas serão renderizadas aqui via JavaScript -->
-        </div>
+            <section class="explanation panel" aria-labelledby="explanation-title">
+                <div class="explanation-intro"><p class="section-label">CONECTE AS IDEIAS</p><h2 id="explanation-title">Da figura à fórmula</h2><p class="muted">Cada parte da figura tem um papel na conta.</p></div>
+                <ol id="explanation-steps" class="explanation-steps"></ol>
+            </section>
+            <noscript><p class="notice">Ative o JavaScript do navegador para usar os controles e visualizar as figuras.</p></noscript>
+        </main>
+        <footer>Álgebra + geometria <span aria-hidden="true">✦</span> Aprender também é visualizar.</footer>
+        <p class="sr-only" id="app-status" role="status"></p>
     </div>
-
-    <script src="script.js"></script>
 </body>
 </html>
