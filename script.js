@@ -126,7 +126,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // but for static representation, we'll just show the pieces.
 
         canvas.style.width = `${(a+b) * SCALE}px`;
-        canvas.style.height = `${a * SCALE}px`;
+        canvas.style.height = `${(2 * a + 1 - b) * SCALE}px`;
 
         // a^2 base
         const baseA2 = createShape(a, a, 0, 0, 'shape-a2', 'a²');
@@ -163,6 +163,7 @@ document.addEventListener('DOMContentLoaded', () => {
         arrow.innerHTML = '&#8595; Área Resultante: a² - b²';
         arrow.style.fontWeight = 'bold';
         canvas.appendChild(arrow);
+        visualization.appendChild(canvas);
     }
 
     productTypeSelect.addEventListener('change', updateVisualization);
